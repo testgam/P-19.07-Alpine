@@ -26,5 +26,6 @@ public class HelloRestController {
 	public String helloWorld(){
 		return "helloWorld";
 	}
+
     
 }
