@@ -24,7 +24,7 @@ public class SearchHistoryService {
     }
 
     public List<SearchHistory> getListByUserId(String userId){
-        return searchHistoryRepository.findByUserId(userId);
+        return searchHistoryRepository.findByUserIdOrderByCreateDateTimeDesc(userId);
     }
 
     public List<SearchStatDTO> getCountGroupByKeyword(){

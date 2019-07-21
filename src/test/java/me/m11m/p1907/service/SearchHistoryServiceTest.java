@@ -46,7 +46,7 @@ public class SearchHistoryServiceTest {
         long id = searchHistoryRepository.save(searchHistory).getId();
 
         // Assert
-        assertThat(searchHistoryRepository.findByUserId("USERID001").get(0).getId(), is(id));
+        assertThat(searchHistoryRepository.findByUserIdOrderByCreateDateTimeDesc("USERID001").get(0).getId(), is(id));
     }
 
 

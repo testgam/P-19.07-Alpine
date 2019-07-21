@@ -15,7 +15,8 @@ import me.m11m.p1907.model.SearchStatDTO;
  */
 @Repository
 public interface SearchHistoryRepository extends JpaRepository<SearchHistory, Long> {
-    public List<SearchHistory> findByUserId(String userId);
+    public List<SearchHistory> findByUserIdOrderByCreateDateTimeDesc(String userId);
+    
     
     @Query("select new me.m11m.p1907.model.SearchStatDTO(s.keyword, COUNT(s.keyword)) from SearchHistory s group by s.keyword order by 2 DESC")
     public List<SearchStatDTO> countGroupByKeywordOrderByCount(Pageable pageable);
