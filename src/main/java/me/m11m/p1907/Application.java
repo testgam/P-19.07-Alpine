@@ -15,7 +15,7 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
-	@Bean
+	/* @Bean
 	public ApplicationRunner setup(SampleRepository sampleRepository){
 		return (args) ->{
 			sampleRepository.save(Sample.builder().text("hello1").build());
@@ -23,6 +23,6 @@ public class Application {
 			sampleRepository.save(Sample.builder().text("hello3").build());
 			sampleRepository.save(Sample.builder().text("hello4").build());
 		};
-	}
+	} */
 
 }

@@ -23,4 +23,8 @@ public class SampleService {
     public List<Sample> findAll(){
         return sampleRepository.findAll();
     }
+
+    public Sample save(Sample sample){
+        return sampleRepository.save(sample);
+    }
 }

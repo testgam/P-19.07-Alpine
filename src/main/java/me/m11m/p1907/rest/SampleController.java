@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import me.m11m.p1907.model.Sample;
@@ -24,5 +26,10 @@ public class SampleController {
     @GetMapping("/samples")
 	ResponseEntity<List<Sample>> getAllToDos() {
         return new ResponseEntity<>(samplService.findAll(), HttpStatus.OK);
+    }
+
+    @PostMapping("/samples")
+    ResponseEntity<Sample> create(@RequestBody Sample s){
+        return new ResponseEntity<>(samplService.save(s),HttpStatus.CREATED);
     }
 }
