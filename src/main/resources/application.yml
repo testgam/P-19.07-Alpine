@@ -1,0 +1,21 @@
+
+---
+spring:
+  profiles: default
+  jpa:
+    database: h2
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  datasource:
+    url: jdbc:h2:mem:localdb
+    username: m11m
+    password: 
+  h2:
+    console:
+      enabled: true
+  
+management:
+  endpoint:
+    health:
+      show-details: always
