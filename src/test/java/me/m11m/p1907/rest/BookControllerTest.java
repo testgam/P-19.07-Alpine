@@ -25,8 +25,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import me.m11m.p1907.model.Book;
 import me.m11m.p1907.model.KDocument;
+import me.m11m.p1907.model.SearchHistory;
 import me.m11m.p1907.model.KDocument.Meta;
 import me.m11m.p1907.service.BookService;
+import me.m11m.p1907.service.SearchHistoryService;
 
 /**
  * BookControllerTest
@@ -41,6 +43,9 @@ public class BookControllerTest {
     @MockBean
     BookService bookService;
 
+    @MockBean
+    SearchHistoryService searchHistoryService;
+
     @Autowired
     BookController bookController;
 
@@ -53,6 +58,7 @@ public class BookControllerTest {
 
     
         when(bookService.findBookByTitle("my")).thenReturn(docuemnt);
+        when(searchHistoryService.addAHistory(any(SearchHistory.class))).thenReturn(null);
 
         // Act
         // ResultActions result = mockMvc.perform(get("/books/{title}", "my").accept(MediaType.APPLICATION_JSON_VALUE));
