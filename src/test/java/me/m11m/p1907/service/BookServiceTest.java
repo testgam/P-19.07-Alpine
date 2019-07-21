@@ -35,7 +35,8 @@ public class BookServiceTest {
                 HttpMethod.GET,
                 entity, KDocument.class);
 
-        System.out.println("############################"+ result.getBody().getDocuments());
+        System.out.println("############################"+ result.getBody());
+
     }
     
 }

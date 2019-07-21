@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import java.util.Arrays;
 import java.util.List;
 
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +24,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import me.m11m.p1907.model.Book;
+import me.m11m.p1907.model.KDocument;
+import me.m11m.p1907.model.KDocument.Meta;
 import me.m11m.p1907.service.BookService;
 
 /**
@@ -42,19 +45,23 @@ public class BookControllerTest {
     BookController bookController;
 
     @Test
-    public void testFindByTitle() throws Exception {
+    public void whenSearchByTitle_thenBooksWithPagination() throws Exception {
         // Arrange
         List<Book> books = Arrays.asList(Book.builder().title("my day").isbn("123345").build(),
                 Book.builder().title("my night").isbn("54321").build());
-        
-        when(bookService.findBookByTitle("my")).thenReturn(books);
+        KDocument docuemnt = KDocument.builder().books(books).meta(KDocument.Meta.builder().isEnd(false).pageableCount(2).totlaCount(3).build()).build();
+
+    
+        when(bookService.findBookByTitle("my")).thenReturn(docuemnt);
 
         // Act
-        ResultActions result = mockMvc.perform(get("/books/{title}", "my").accept(MediaType.APPLICATION_JSON_VALUE));
+        // ResultActions result = mockMvc.perform(get("/books/{title}", "my").accept(MediaType.APPLICATION_JSON_VALUE));
+        ResultActions result = mockMvc.perform(get("/books?keyword={keyword}", "my").accept(MediaType.APPLICATION_JSON_VALUE));
 
         // Assert
-        result.andExpect(jsonPath("$", hasSize(2)))
+        result.andExpect(jsonPath("$.books", hasSize(2)))
         .andDo(print());
     }
+
 
 }

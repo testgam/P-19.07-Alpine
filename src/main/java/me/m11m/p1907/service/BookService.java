@@ -1,13 +1,14 @@
 package me.m11m.p1907.service;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import me.m11m.p1907.model.Book;
+import me.m11m.p1907.model.KDocument;
 
 /**
  * BookService
@@ -18,8 +19,12 @@ public class BookService {
     @Autowired
     RestTemplate restTemplate;
 
-    public List<Book> findBookByTitle(String title){
-        Book[] books = restTemplate.getForObject("", Book[].class);
-        return Arrays.asList(books);
+    @Value("${search-api.kakao.url}")
+    String searchUrl;
+
+    public KDocument findBookByTitle(String keyword){
+        KDocument result = restTemplate.getForObject(searchUrl+"?query="+keyword, KDocument.class);
+
+        return result;
     }
 }
