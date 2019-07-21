@@ -3,8 +3,18 @@ spring:
     active: test
 ---
 spring:
+  jpa:
+    database: h2
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
   profiles: test
   datasource:
     url: jdbc:h2:mem:testdb
     username: m11m
     password: 
+
+search-api:
+  kakao:
+    key: 62964ac7891e18fc1292b855dc88c379 # sample key
+    url: https://dapi.kakao.com/v3/search/book

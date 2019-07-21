@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import me.m11m.p1907.model.Book;
 import me.m11m.p1907.model.KDocument;
+import me.m11m.p1907.model.SearchHistory;
 import me.m11m.p1907.service.BookService;
+import me.m11m.p1907.service.SearchHistoryService;
 
 /**
  * BookController
@@ -23,9 +25,15 @@ public class BookController {
     @Autowired
     BookService bookService;
 
+    @Autowired
+    SearchHistoryService searchHistoryService;
+
     @GetMapping("/books")
     ResponseEntity<KDocument> getBooksByTitle(@RequestParam(required = false) String keyword){
         KDocument result = bookService.findBookByTitle(keyword);
+
+        //TODO: 조회 될 때마다 정보 저장.
+        searchHistoryService.addAHistory(SearchHistory.builder().keyword(keyword).userId("A").build());
 
         //TODO: respoese Header로 Pagination 처리
 
