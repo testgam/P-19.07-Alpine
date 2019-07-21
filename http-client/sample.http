@@ -1,3 +1,17 @@
 ### 
 
-GET http://localhost:8080/samples HTTP/1.1
+GET http://localhost:8080/books?keyword=과로 HTTP/1.1
+
+###
+GET http://localhost:8080/histories/_/user?userId=A HTTP/1.1
+
+###
+GET http://localhost:8080/histories/_/keyword HTTP/1.1
+
+###
+
+GET https://dapi.kakao.com/v3/search/book HTTP/1.1
+?query=미움받을 용기
+Authorization: KakaoAK 62964ac7891e18fc1292b855dc88c379
+
+###

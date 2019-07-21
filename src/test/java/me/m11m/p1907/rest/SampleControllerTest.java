@@ -32,7 +32,7 @@ import me.m11m.p1907.service.SampleService;
 /**
  * TestController
  */
-@WebMvcTest
+@WebMvcTest(SampleController.class)
 @RunWith(SpringRunner.class)
 public class SampleControllerTest {
 
