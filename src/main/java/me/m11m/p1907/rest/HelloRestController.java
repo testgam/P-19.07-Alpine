@@ -16,7 +16,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @RestController
 public class HelloRestController {
 
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "/swagger")
 	@ApiIgnore
 	public void redirectToSwagger(HttpServletResponse response) throws IOException {
 		response.sendRedirect("/swagger-ui.html");

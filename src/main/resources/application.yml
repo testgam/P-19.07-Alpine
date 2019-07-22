@@ -1,7 +1,16 @@
+spring:
+  thymeleaf:
+    mode: HTML
+
 management:
   endpoint:
     health:
       show-details: always
+  endpoints:
+    web:
+      base-path: /dev/actuator
+      exposure:
+        include: "*"
 
 search-api:
   kakao:

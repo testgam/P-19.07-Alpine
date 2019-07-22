@@ -26,9 +26,7 @@ import lombok.ToString;
 @Builder
 @ToString
 public class Book{
-
-    @Id
-    @GeneratedValue
+    
     @JsonIgnore
     long id;
     
