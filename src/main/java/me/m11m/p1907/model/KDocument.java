@@ -22,7 +22,6 @@ public class KDocument {
     @JsonAlias("documents")
     List<Book> books;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     Meta meta;
     /**
      * InnerKDocument
@@ -33,11 +32,11 @@ public class KDocument {
     @NoArgsConstructor
     static public class Meta {
         @JsonAlias("is_end")
-        boolean isEnd;
+        boolean endTF;
         @JsonAlias("pageable_count")
         int pageableCount;
         @JsonAlias("total_count")
-        int totlaCount;
+        int totalCount;
     }
 
 }

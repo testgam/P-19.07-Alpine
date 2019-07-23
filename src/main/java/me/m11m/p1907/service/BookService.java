@@ -22,8 +22,8 @@ public class BookService {
     @Value("${search-api.kakao.url}")
     String searchUrl;
 
-    public KDocument findBookByTitle(String keyword){
-        KDocument result = restTemplate.getForObject(searchUrl+"?query="+keyword, KDocument.class);
+    public KDocument findBookByTitle(String keyword, int page){
+        KDocument result = restTemplate.getForObject(searchUrl+"?query="+keyword+"&page="+page, KDocument.class);
 
         return result;
     }

@@ -54,10 +54,10 @@ public class BookControllerTest {
         // Arrange
         List<Book> books = Arrays.asList(Book.builder().title("my day").isbn("123345").build(),
                 Book.builder().title("my night").isbn("54321").build());
-        KDocument docuemnt = KDocument.builder().books(books).meta(KDocument.Meta.builder().isEnd(false).pageableCount(2).totlaCount(3).build()).build();
+        KDocument docuemnt = KDocument.builder().books(books).meta(KDocument.Meta.builder().endTF(false).pageableCount(2).totalCount(3).build()).build();
 
     
-        when(bookService.findBookByTitle("my")).thenReturn(docuemnt);
+        when(bookService.findBookByTitle("my",1)).thenReturn(docuemnt);
         when(searchHistoryService.addAHistory(any(SearchHistory.class))).thenReturn(null);
 
         // Act
