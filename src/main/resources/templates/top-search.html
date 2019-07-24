@@ -50,7 +50,7 @@
           var temp = $('<div>');
           $('#historyTable tbody').empty();
           $.each(response, function (i, item) {
-            var tr =  '<tr><td>' + item.keyword + '</td><td>' + item.size + '</td></tr>';
+            var tr =  '<tr><td>' + item.keyword + '</td><td>' + item.count + '</td></tr>';
             tr = $(tr);
             temp.append(tr);
           });

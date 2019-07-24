@@ -34,13 +34,10 @@ public class BookController {
 
         KDocument result = bookService.findBookByTitle(keyword,page);
         
-        //TODO: 조회 될 때마다 정보 저장.
         if(changed){
+            //TODO: CustomEvent Async를 사용하여 반응성 향상 필요
             searchHistoryService.addAHistory(SearchHistory.builder().keyword(keyword).userId(principal.getUsername()).build());
         }
-
-        //TODO: respoese Header로 Pagination 처리
-
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

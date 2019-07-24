@@ -50,10 +50,25 @@
       <li><a href="#" id="next">Next</a></li>
     </ul>
   </div>
+  <div class="container" id="detailGroup">
+      <ul class="list-group">
+        <li class="list-group-item _title" ></li>
+        <li class="list-group-item _thumbnail"></li>
+        <li class="list-group-item _contents"></li>
+        <li class="list-group-item _isbn"></li>
+        <li class="list-group-item _authors"></li>
+        <li class="list-group-item _publisher"></li>
+        <li class="list-group-item _datetime"></li>
+        <li class="list-group-item _price"></li>
+        <li class="list-group-item _salePrice"></li>
+      </ul>
+  </div>
 
   <script th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
   <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
   <script th:src="@{/webjars/datatables/1.10.12/js/jquery.dataTables.min.js}"></script>
+
+  
 
   <script>
 
@@ -112,9 +127,20 @@
     });
 
     $('#bookTable').on('click','.detailTr',function(event){
-      alert(JSON.stringify($(this).data('detail')));
+      var data = $(this).data('detail');
+      $("._title").text(data.title);
+      $("._thumbnail").text(data.thumbnail);
+      $("._contents").text(data.contents);
+      $("._isbn").text(data.isbn);
+      $("._authors").text(data.authors);
+      $("._publisher").text(data.publisher);
+      $("._datetime").text(data.datetime);
+      $("._price").text(data.price);
+      $("._salePrice").text(data.salePrice);
     });
   </script>
+
+
 </body>
 
 </html>
