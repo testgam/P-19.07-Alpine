@@ -3,7 +3,6 @@ package me.m11m.p1907.model;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +21,6 @@ public class KDocument {
     @JsonAlias("documents")
     List<Book> books;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     Meta meta;
     /**
      * InnerKDocument
@@ -33,11 +31,11 @@ public class KDocument {
     @NoArgsConstructor
     static public class Meta {
         @JsonAlias("is_end")
-        boolean isEnd;
+        boolean endTF;
         @JsonAlias("pageable_count")
         int pageableCount;
         @JsonAlias("total_count")
-        int totlaCount;
+        int totalCount;
     }
 
 }

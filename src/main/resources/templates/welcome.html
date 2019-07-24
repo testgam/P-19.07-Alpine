@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <title>MAIN</title>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+  <link rel="stylesheet" th:href="@{/webjars/datatables/1.10.12/css/jquery.dataTables.min.css}">
+
+</head>
+
+<body>
+  <div class="container">
+    <form id="logoutForm" method="POST" th:action="@{/logout}">
+    </form>
+
+    <a class="btn btn-outline-dark" onclick="document.forms['logoutForm'].submit()" role="button">로그아웃</a>
+    <a class="btn btn-primary" th:href="@{/welcome}" role="button">초기화면</a>
+    <a class="btn btn-secondary" th:href="@{/search-histories}" role="button">검색기록</a>
+    <a class="btn btn-secondary" th:href="@{/top-search}" role="button">검색TOP10</a>
+  </div>
+
+
+  <div class="container">
+    <form class="navbar-form" role="search" id="searchForm">
+      <div class="input-group add-on">
+        <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+      </div>
+    </form>
+    <table id="bookTable" class="table">
+
+      <!-- Header Table -->
+      <thead>
+        <tr>
+          <th>제목</th>
+          <th>정가</th>
+          <th>저자</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+
+    </table>
+    <ul class="pager">
+      <li><a href="#" id="prev">Previous</a></li>
+      <li><a href="#" id="next">Next</a></li>
+    </ul>
+  </div>
+  <div class="container" id="detailGroup">
+      <ul class="list-group">
+        <li class="list-group-item _title" ></li>
+        <li class="list-group-item _thumbnail"></li>
+        <li class="list-group-item _contents"></li>
+        <li class="list-group-item _isbn"></li>
+        <li class="list-group-item _authors"></li>
+        <li class="list-group-item _publisher"></li>
+        <li class="list-group-item _datetime"></li>
+        <li class="list-group-item _price"></li>
+        <li class="list-group-item _salePrice"></li>
+      </ul>
+  </div>
+
+  <script th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+  <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+  <script th:src="@{/webjars/datatables/1.10.12/js/jquery.dataTables.min.js}"></script>
+
+  
+
+  <script>
+
+    $(document).ready(function () {
+
+    });
+
+    $('#searchForm').on('submit', function (event) {
+      event.preventDefault();
+      $.ajax({
+        type: "get",
+        url: "/apis/books",
+        data: { keyword: $('#srch-term').val(), page: $("#bookTable").data("page"), changed: $("#srch-term").data('changed') },
+        success: function (response) {
+          $('#bookTable').data('endTF',response.meta.endTF);
+          var temp = $('<div>');
+          $('#bookTable tbody').empty();
+          $.each(response.books, function (i, item) {
+            var tr =  '<tr class="detailTr" ><td>' + item.title + '</td><td>' + item.price + '</td><td>' + item.authors + '</td></tr>';
+            tr = $(tr);
+            tr.data('detail', item);
+            temp.append(tr);
+          });
+          temp.children().appendTo("#bookTable tbody");
+          
+          $("#srch-term").data("changed",false);
+        }
+      });
+    });
+
+    $('#srch-term').on('change',function(event){
+      $("#bookTable").data("page",1);
+      $("#srch-term").data("changed",true);
+    });
+
+    $("#next").on('click', function (event) {
+      if($("#bookTable").data("page") == undefined || $('#bookTable').data('endTF') == true ){
+        alert('더이상 없음');
+      }else{
+        var pageNum = $("#bookTable").data("page");
+        $("#bookTable").data("page",pageNum+1);
+
+        $('#searchForm').trigger('submit');
+      }
+    });
+
+    $("#prev").on('click', function (event) {
+      if($("#bookTable").data("page") > 1){
+        var pageNum = $("#bookTable").data("page");
+        $("#bookTable").data("page",pageNum-1);
+
+        $('#searchForm').trigger('submit');
+      }else{
+        alert('더이상 없음');
+      }
+    });
+
+    $('#bookTable').on('click','.detailTr',function(event){
+      var data = $(this).data('detail');
+      $("._title").text(data.title);
+      $("._thumbnail").text(data.thumbnail);
+      $("._contents").text(data.contents);
+      $("._isbn").text(data.isbn);
+      $("._authors").text(data.authors);
+      $("._publisher").text(data.publisher);
+      $("._datetime").text(data.datetime);
+      $("._price").text(data.price);
+      $("._salePrice").text(data.salePrice);
+    });
+  </script>
+
+
+</body>
+
+</html>

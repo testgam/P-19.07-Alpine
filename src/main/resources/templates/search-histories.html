@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <title>검색기록</title>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+  <link rel="stylesheet" th:href="@{/webjars/datatables/1.10.12/css/jquery.dataTables.min.css}">
+
+</head>
+
+<body>
+  <div class="container">
+    <form id="logoutForm" method="POST" th:action="@{/logout}">
+    </form>
+
+    <a class="btn btn-outline-dark" onclick="document.forms['logoutForm'].submit()" role="button">로그아웃</a>
+    <a class="btn btn-secondary" th:href="@{/welcome}" role="button">초기화면</a>
+    <a class="btn btn-primary" th:href="@{/search-histories}" role="button">검색기록</a>
+    <a class="btn btn-secondary" th:href="@{/top-search}" role="button">검색TOP10</a>
+  </div>
+
+
+  <div class="container">
+    <table id="historyTable" class="table">
+
+      <!-- Header Table -->
+      <thead>
+        <tr>
+          <th>키워드</th>
+          <th>검색 일시</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+
+    </table>
+  </div>
+
+  <script th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+  <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+  <script th:src="@{/webjars/datatables/1.10.12/js/jquery.dataTables.min.js}"></script>
+
+  <script>
+
+    $(document).ready(function () {
+      $.ajax({
+        type: "get",
+        url: "/apis/histories/_/user",
+        data: {},
+        success: function (response) {
+          var temp = $('<div>');
+          $('#historyTable tbody').empty();
+          $.each(response, function (i, item) {
+            var tr =  '<tr><td>' + item.keyword + '</td><td>' + item.createDateTime + '</td></tr>';
+            tr = $(tr);
+            temp.append(tr);
+          });
+          temp.children().appendTo("#historyTable tbody");
+          
+        }
+      });
+
+    });
+  </script>
+</body>
+
+</html>

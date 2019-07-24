@@ -3,12 +3,12 @@ package me.m11m.p1907.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import me.m11m.p1907.model.SearchHistory;
 import me.m11m.p1907.model.SearchStatDTO;
 import me.m11m.p1907.repository.SearchHistoryRepository;
+import me.m11m.p1907.repository.SearchHistoryRepositorySupport;
 
 /**
  * SearchHistoryService
@@ -18,6 +18,9 @@ public class SearchHistoryService {
 
     @Autowired
     SearchHistoryRepository searchHistoryRepository;
+    
+    @Autowired
+    SearchHistoryRepositorySupport searchHistoryRepositorySupport;
 
     public SearchHistory addAHistory(SearchHistory s){
         return searchHistoryRepository.save(s);
@@ -28,9 +31,9 @@ public class SearchHistoryService {
     }
 
     public List<SearchStatDTO> getCountGroupByKeyword(){
-        return searchHistoryRepository.countGroupByKeywordOrderByCount(PageRequest.of(0,10));
+        return searchHistoryRepositorySupport.countGroupByKeywordOrderByCount();
     }
 
-    // 카운트 조회
+    
     
 }

@@ -3,10 +3,16 @@ management:
     health:
       show-details: always
 
+spring:
+  thymeleaf:
+    mode: HTML
+
 search-api:
   kakao:
     key: 62964ac7891e18fc1292b855dc88c379 # sample key
     url: https://dapi.kakao.com/v3/search/book
+
+
 
 ---
 spring:

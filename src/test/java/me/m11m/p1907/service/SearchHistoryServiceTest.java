@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import me.m11m.p1907.model.SearchHistory;
 import me.m11m.p1907.model.SearchStatDTO;
 import me.m11m.p1907.repository.SearchHistoryRepository;
+import me.m11m.p1907.repository.SearchHistoryRepositorySupport;
 
 /**
  * SearchHistoryServiceTest
@@ -28,6 +29,9 @@ public class SearchHistoryServiceTest {
     @Autowired
     SearchHistoryRepository searchHistoryRepository;
     
+    @Autowired
+    SearchHistoryRepositorySupport searchHistoryRepositorySupport;
+
     @After
     public void clean(){
         searchHistoryRepository.deleteAll();
@@ -65,10 +69,24 @@ public class SearchHistoryServiceTest {
         searchHistoryRepository.saveAll(histories);
 
         // Act
-        List<SearchStatDTO> ls = searchHistoryRepository.countGroupByKeywordOrderByCount(PageRequest.of(0,10));
+        List<SearchStatDTO> ls = searchHistoryRepositorySupport.countGroupByKeywordOrderByCount();
 
         // Assert
         assertThat(ls.get(0).getCount(), is(4L));
+    }
+
+    @Test
+    public void countByQClass(){
+        /* QueryEntity p = QPersonEntity.person; //the querydsl definition
+
+int age = new JPAQuery(em)
+    .select(p.age)
+    .from(p)
+    .where(p.firstname.eq(firstname).and(p.lastname.eq(lastname)))
+    .groupBy(p.age)
+    .orderBy(p.age.count().desc())
+    .limit(1)
+    .fetchOne(); */
     }
 
   
