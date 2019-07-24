@@ -6,6 +6,8 @@ import static org.junit.Assert.assertThat;
 import java.util.Arrays;
 import java.util.List;
 
+import com.querydsl.core.annotations.QueryEntity;
+
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -69,6 +71,20 @@ public class SearchHistoryServiceTest {
 
         // Assert
         assertThat(ls.get(0).getCount(), is(4L));
+    }
+
+    @Test
+    public void countByQClass(){
+        /* QueryEntity p = QPersonEntity.person; //the querydsl definition
+
+int age = new JPAQuery(em)
+    .select(p.age)
+    .from(p)
+    .where(p.firstname.eq(firstname).and(p.lastname.eq(lastname)))
+    .groupBy(p.age)
+    .orderBy(p.age.count().desc())
+    .limit(1)
+    .fetchOne(); */
     }
 
   

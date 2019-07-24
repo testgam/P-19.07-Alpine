@@ -16,15 +16,14 @@ import org.hibernate.annotations.CreationTimestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
  * SearchHistory
  */
 @Entity
-@Data
-@Builder
-@AllArgsConstructor
+@Getter
 @NoArgsConstructor
 public class SearchHistory {
 
@@ -44,4 +43,10 @@ public class SearchHistory {
 
     @CreationTimestamp
     private LocalDateTime createDateTime;
+
+    @Builder
+    public SearchHistory(String userId, String keyword){
+        this.userId=userId;
+        this.keyword=keyword;
+    }
 }

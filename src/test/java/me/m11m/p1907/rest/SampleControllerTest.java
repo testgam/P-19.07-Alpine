@@ -32,7 +32,7 @@ import me.m11m.p1907.service.SampleService;
 /**
  * TestController
  */
-@WebMvcTest(SampleController.class)
+@WebMvcTest(controllers = {SampleController.class}, secure = false)
 @RunWith(SpringRunner.class)
 public class SampleControllerTest {
 
@@ -72,9 +72,6 @@ public class SampleControllerTest {
 
         // Assert
         result.andExpect(status().isCreated()).andExpect(jsonPath("$.text", is("sample")));
-
-
-
 
     }
 

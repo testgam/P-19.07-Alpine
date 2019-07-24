@@ -33,7 +33,7 @@ import me.m11m.p1907.service.SearchHistoryService;
 /**
  * BookControllerTest
  */
-@WebMvcTest(BookController.class)
+@WebMvcTest(controllers =  {BookController.class}, secure = false)
 @RunWith(SpringRunner.class)
 public class BookControllerTest {
 
