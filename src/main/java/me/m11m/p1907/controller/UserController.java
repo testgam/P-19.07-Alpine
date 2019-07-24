@@ -20,18 +20,19 @@ public class UserController {
     @Autowired
     private SecurityService securityService;
 
+
+
     @GetMapping("/registration")
-    public String registration(/* Model model */) {
-        // model.addAttribute("userForm", new User());
+    public String registration() {
 
         return "registration";
     }
 
     @PostMapping("/registration")
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            return "registration";
+        
+        if( !userForm.getPasswordConfirm().equals(userForm.getPassword())){
+            return "redirect:/registration";
         }
 
         userService.save(userForm);
@@ -42,13 +43,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
-
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
-
+    public String login() {
         return "login";
     }
 
