@@ -14,7 +14,10 @@
     <form id="logoutForm" method="POST" th:action="@{/logout}">
     </form>
 
-    <a onclick="document.forms['logoutForm'].submit()">Logout</a>
+    <a class="btn btn-outline-dark" onclick="document.forms['logoutForm'].submit()" role="button">로그아웃</a>
+    <a class="btn btn-primary" th:href="@{/welcome}" role="button">초기화면</a>
+    <a class="btn btn-secondary" th:href="@{/search-histories}" role="button">검색기록</a>
+    <a class="btn btn-secondary" th:href="@{/top-search}" role="button">검색TOP10</a>
   </div>
 
 
@@ -62,8 +65,8 @@
       event.preventDefault();
       $.ajax({
         type: "get",
-        url: "/books",
-        data: { keyword: $('#srch-term').val(), page: $("#bookTable").data("page") },
+        url: "/apis/books",
+        data: { keyword: $('#srch-term').val(), page: $("#bookTable").data("page"), changed: $("#srch-term").data('changed') },
         success: function (response) {
           $('#bookTable').data('endTF',response.meta.endTF);
           var temp = $('<div>');
@@ -76,12 +79,14 @@
           });
           temp.children().appendTo("#bookTable tbody");
           
+          $("#srch-term").data("changed",false);
         }
       });
     });
 
     $('#srch-term').on('change',function(event){
       $("#bookTable").data("page",1);
+      $("#srch-term").data("changed",true);
     });
 
     $("#next").on('click', function (event) {

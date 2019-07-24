@@ -14,18 +14,11 @@ import springfox.documentation.annotations.ApiIgnore;
  * HelloRestController
  */
 @RestController
-public class HelloRestController {
+public class SwaggerController {
 
 	@RequestMapping(value = "/")
 	@ApiIgnore
 	public void redirectToSwagger(HttpServletResponse response) throws IOException {
 		response.sendRedirect("/swagger-ui.html");
-	}
-
-	@GetMapping("/helloworld")
-	public String helloWorld(){
-		return "helloWorld";
-	}
-
-    
+	}    
 }
