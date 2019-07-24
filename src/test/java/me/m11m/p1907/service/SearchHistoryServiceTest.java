@@ -6,8 +6,6 @@ import static org.junit.Assert.assertThat;
 import java.util.Arrays;
 import java.util.List;
 
-import com.querydsl.core.annotations.QueryEntity;
-
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
